@@ -10,8 +10,17 @@ if os.path.exists(csvPath):
     csv_reader = reader(read_obj)
     # Iterate over each row in the csv using reader object
     for row in csv_reader:
-        # take name and room number to create file
+        # Need creating a new file
+        
+        # take name and room number to create text
       bpy.ops.object.text_add()
       ob=bpy.context.object
       ob.data.body = row
+      
+      #extrude
+      
+      #texture/color
+      
+      
+      #export
     
