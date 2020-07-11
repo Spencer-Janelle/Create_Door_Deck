@@ -21,4 +21,4 @@ if os.path.exists(csvPath):
       
       
       #export as gltf
-    
+      bpy.ops.export_scene.gltf('GLTF_EMBEDDED')
