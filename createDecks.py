@@ -18,7 +18,13 @@ if os.path.exists(csvPath):
       #extrude
       
       #texture/color
-      
+      obj.color = get_random_color()
       
       #export as gltf
       bpy.ops.export_scene.gltf('GLTF_EMBEDDED', filepath=row)
+      
+#random color for text      
+def get_random_color():
+    ''' generate rgb using a list comprehension '''
+    r, g, b = [random.random() for i in range(3)]
+    return r, g, b, 1
