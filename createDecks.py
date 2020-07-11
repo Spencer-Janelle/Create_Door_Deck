@@ -12,8 +12,8 @@ if os.path.exists(csvPath):
     bpy.ops.object.text_add()
     for row in csv_reader:
         # take name and room number to create text
-      ob=bpy.context.object
-      ob.data.body = row
+      obj=bpy.context.object
+      obj.data.body = row
       
       #extrude
       
