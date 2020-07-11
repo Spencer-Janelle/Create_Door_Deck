@@ -21,7 +21,7 @@ if os.path.exists(csvPath):
       obj.color = get_random_color()
       
       #export as gltf
-      bpy.ops.export_scene.gltf('GLTF_EMBEDDED', filepath=row)
+      bpy.ops.export_scene.gltf('GLTF_EMBEDDED', filepath=row + ".gltf")
       
 #random color for text      
 def get_random_color():
