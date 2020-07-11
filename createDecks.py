@@ -22,5 +22,5 @@ if os.path.exists(csvPath):
       #texture/color
       
       
-      #export
+      #export as gltf
     
