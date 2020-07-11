@@ -9,11 +9,9 @@ if os.path.exists(csvPath):
     # pass the file object to reader() to get the reader object
     csv_reader = reader(read_obj)
     # Iterate over each row in the csv using reader object
+    bpy.ops.object.text_add()
     for row in csv_reader:
-        # Need creating a new file
-        
         # take name and room number to create text
-      bpy.ops.object.text_add()
       ob=bpy.context.object
       ob.data.body = row
       
