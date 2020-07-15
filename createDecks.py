@@ -1,4 +1,4 @@
-# Run as: blender -b <filename> -P <this_script> -- <csv_path>
+# Run as: blender -b <filename> -P <this_script> -- <csv_path> <output_path>
 from _csv import reader
 from random import random
 
@@ -14,7 +14,10 @@ def get_random_color():
 
 
 # Assume the last argument is csv path
-csvPath = sys.argv[-1]
+csvPath = sys.argv[-2]
+
+# Path where 3D files will be output
+outputPath = sys.argv[-1]
 
 if os.path.exists(csvPath):
     # open file in read mode
@@ -26,12 +29,13 @@ if os.path.exists(csvPath):
         for row in csv_reader:
             # take name and room number to create text
             obj = bpy.context.object
-            obj.data.body = row
+            print(row[0])
+            obj.data.body = row[0]
 
             # extrude
             obj.data.extrude = 0.2
             # texture/color
-            obj.color = get_random_color()
+            # obj.color = get_random_color()
 
             # export as gltf
-            bpy.ops.export_scene.gltf('GLTF_EMBEDDED', filepath=os.path.join('C:\Users\spenc\Desktop\gltf', row + '.gltf')
+            bpy.ops.export_scene.gltf(export_format='GLTF_EMBEDDED', filepath=os.path.join(outputPath, row[0]))
