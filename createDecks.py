@@ -25,6 +25,7 @@ if os.path.exists(csvPath):
         # pass the file object to reader() to get the reader object
         csv_reader = reader(read_obj)
         # Iterate over each row in the csv using reader object
+        bpy.ops.object.select_by_type(type='MESH')
         bpy.ops.object.delete()
         bpy.ops.object.text_add()
         for row in csv_reader:
