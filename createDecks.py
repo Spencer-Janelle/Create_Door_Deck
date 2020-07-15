@@ -1,6 +1,6 @@
 # Run as: blender -b <filename> -P <this_script> -- <csv_path> <output_path>
 from _csv import reader
-from random import random
+import random
 
 import bpy
 import os
@@ -35,7 +35,7 @@ if os.path.exists(csvPath):
             # extrude
             obj.data.extrude = 0.2
             # texture/color
-            # obj.color = get_random_color()
+            obj.color = get_random_color()
 
             # export as gltf
             bpy.ops.export_scene.gltf(export_format='GLTF_EMBEDDED', filepath=os.path.join(outputPath, row[0]))
