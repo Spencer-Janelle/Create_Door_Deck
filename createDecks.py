@@ -1,16 +1,6 @@
-# Run as: blender -b <filename> -P <this_script> -- <csv_path> <output_path>
-from _csv import reader
-import random
-
-import bpy
-import os
-import sys
-
-
-# random color for text
 def get_random_color():
     r, g, b = [random.random() for i in range(3)]
-    return r, g, b, 1
+    return r, g, b
 
 
 # Assume the last argument is csv path
@@ -36,8 +26,15 @@ if os.path.exists(csvPath):
             # extrude
             obj.data.extrude = 0.2
             # texture/color
-            obj.color = get_random_color()
             bpy.ops.object.convert(target="MESH")
+            mat = bpy.data.materials.new("Text")
+            mat.use_nodes = True
+            principled = PrincipledBSDFWrapper(mat, is_readonly=False)
+            principled.base_color = (get_random_color())
+            mesh = obj.data
+            if len(mesh.materials) == 0:
+                mesh.materials.append(mat)
+            else:
+                mesh.materials[0] = mat
             # export as gltf
             bpy.ops.export_scene.gltf(export_format='GLTF_EMBEDDED', filepath=os.path.join(outputPath, row[0]))
-
