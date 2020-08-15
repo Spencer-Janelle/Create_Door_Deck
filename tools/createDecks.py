@@ -6,9 +6,7 @@ from bpy_extras.node_shader_utils import PrincipledBSDFWrapper
 import os
 import sys
 # List of UNH RGB color values
-unh_colors = [(0, 29, 82), (0, 68, 187), (203, 77, 11),
-             (247, 122, 5), (38, 54, 69), (92, 104, 116),
-             (163, 169, 172), (255, 255, 255), (0, 53, 145)]
+unh_colors = [(0, 69, 187), (247, 122, 5), (255, 255, 255)]
 
 
 # Generate a random rgb value
@@ -18,7 +16,7 @@ def get_random_color(random_color_type):
         r, g, b = [random.random() for i in range(3)]
     elif random_color_type is 1:
         # Get UNH Color tuple
-        color = unh_colors[random.randint(0, 8)]
+        color = unh_colors[random.randint(0, len(unh_colors) - 1)]
         # Divide each value by 255 as the material takes decimal values
         r, g, b = color[0]/255, color[1]/255, color[2]/255
     return r, g, b
@@ -42,6 +40,8 @@ def generateModels(csv, output, color_type):
             obj.data.body = resident_name + '\nRoom ' + room_number
             # extrude
             obj.data.extrude = 0.2
+            # Bring the text out of the plane and center it
+            bpy.ops.transform.translate(value=(-1.7, 0, 0.25), orient_type='GLOBAL')
             # texture/color
             bpy.ops.object.convert(target="MESH")
             mat = bpy.data.materials.new("Text")
@@ -54,7 +54,9 @@ def generateModels(csv, output, color_type):
             else:
                 mesh.materials[0] = mat
             # export as gltf
-            bpy.ops.export_scene.gltf(export_format='GLTF_EMBEDDED', filepath=os.path.join(output, resident_name + '-' +room_number))
+            filename = resident_name.lower() + " " + room_number
+            filename = filename.replace(" ", "-")
+            bpy.ops.export_scene.gltf(export_format='GLTF_EMBEDDED', filepath=os.path.join(output, filename))
 
 def main():
     # Get the CSV path to pull from
